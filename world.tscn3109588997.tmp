@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://ddx4rno64f2ct"]
+
+[ext_resource type="Script" uid="uid://c0452q6jt5f55" path="res://world.gd" id="1_036b0"]
+[ext_resource type="PackedScene" uid="uid://twvp8jgsxr13" path="res://player_ship/ship.tscn" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://dhjb5tym2qlrb" path="res://effects/space_background.tscn" id="1_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://e4p4yf6y76xh" path="res://menu/pause_menu.tscn" id="4_036b0"]
+[ext_resource type="Script" uid="uid://deluoitnq6sqm" path="res://level_manager.gd" id="4_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://dcmd6bnw440v4" path="res://menu/game_over.tscn" id="6_dwbse"]
+[ext_resource type="Texture2D" uid="uid://cp2h8nc4bo670" path="res://assets/life_counter.png" id="7_pkg7o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygjvg"]
+
+[node name="World" type="Node2D" unique_id=2062796819]
+script = ExtResource("1_036b0")
+
+[node name="SpaceBackground" parent="." unique_id=1805029230 instance=ExtResource("1_fj7yv")]
+
+[node name="Ship" parent="." unique_id=854553741 instance=ExtResource("1_f3sb7")]
+position = Vector2(80, 220)
+
+[node name="LevelManager" type="Node2D" parent="." unique_id=1482225719]
+scale = Vector2(1.0195969, 1.033179)
+script = ExtResource("4_aqk2v")
+start_frame = 3720
+green_enemy = null
+pink_enemy = null
+purple_enemy = null
+s1_midboss = null
+
+[node name="PauseMenu" parent="." unique_id=305134188 instance=ExtResource("4_036b0")]
+visible = false
+
+[node name="GameOver" parent="." unique_id=272391852 instance=ExtResource("6_dwbse")]
+visible = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=882107740]
+position = Vector2(136, 72)
+shape = SubResource("RectangleShape2D_ygjvg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=866397209]
+position = Vector2(-8, 40)
+shape = SubResource("RectangleShape2D_ygjvg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=808436209]
+
+[node name="LivesContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1808385625]
+custom_maximum_size = Vector2(55, 20)
+offset_top = 16.0
+offset_right = 20.0
+offset_bottom = 26.0
+theme_override_constants/separation = 1
+
+[node name="LifeSprite" type="TextureRect" parent="CanvasLayer/LivesContainer" unique_id=1848184915]
+custom_minimum_size = Vector2(10, 10)
+custom_maximum_size = Vector2(10, 10)
+layout_mode = 2
+texture = ExtResource("7_pkg7o")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LifeSprite2" type="TextureRect" parent="CanvasLayer/LivesContainer" unique_id=837196966]
+custom_minimum_size = Vector2(10, 10)
+custom_maximum_size = Vector2(10, 10)
+layout_mode = 2
+texture = ExtResource("7_pkg7o")
+expand_mode = 1
+stretch_mode = 5
+
+[connection signal="gained_life" from="Ship" to="." method="_on_ship_gained_life"]
+[connection signal="game_over" from="Ship" to="." method="_on_ship_game_over"]
+[connection signal="life_lost" from="Ship" to="." method="_on_ship_life_lost"]

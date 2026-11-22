@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bcmimihv53p8w"]
+
+[ext_resource type="Script" uid="uid://cnsdn2rvlh4rl" path="res://queue/queue_test.gd" id="1_5n23k"]
+
+[node name="queue_test" type="Node2D" unique_id=1559963891]
+script = ExtResource("1_5n23k")

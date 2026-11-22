@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://ddx4rno64f2ct"]
+
+[ext_resource type="PackedScene" uid="uid://twvp8jgsxr13" path="res://player_ship/ship.tscn" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://dhjb5tym2qlrb" path="res://effects/space_background.tscn" id="1_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://e4p4yf6y76xh" path="res://menu/pause_menu.tscn" id="4_036b0"]
+[ext_resource type="Script" uid="uid://deluoitnq6sqm" path="res://level_manager.gd" id="4_aqk2v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8s21g"]
+size = Vector2(160, 240)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygjvg"]
+
+[node name="World" type="Node2D" unique_id=2062796819]
+
+[node name="SpaceBackground" parent="." unique_id=1805029230 instance=ExtResource("1_fj7yv")]
+
+[node name="Ship" parent="." unique_id=854553741 instance=ExtResource("1_f3sb7")]
+position = Vector2(80, 220)
+
+[node name="LevelManager" type="Node2D" parent="." unique_id=1482225719]
+scale = Vector2(1.0195969, 1.033179)
+script = ExtResource("4_aqk2v")
+start_frame = 1350
+
+[node name="PauseMenu" parent="." unique_id=305134188 instance=ExtResource("4_036b0")]
+visible = false
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1981092045]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=543316715]
+position = Vector2(80, 120)
+shape = SubResource("RectangleShape2D_8s21g")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=882107740]
+position = Vector2(24, -8)
+shape = SubResource("RectangleShape2D_ygjvg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=866397209]
+position = Vector2(80, 40)
+shape = SubResource("RectangleShape2D_ygjvg")

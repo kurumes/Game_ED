@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://ddx4rno64f2ct"]
+
+[ext_resource type="Script" uid="uid://c0452q6jt5f55" path="res://stages/stages_manager.gd" id="1_6oaam"]
+[ext_resource type="PackedScene" uid="uid://dhjb5tym2qlrb" path="res://effects/space_background.tscn" id="2_lugph"]
+[ext_resource type="PackedScene" uid="uid://twvp8jgsxr13" path="res://player_ship/ship.tscn" id="3_sj8rn"]
+[ext_resource type="Script" uid="uid://bwche0pfsjpil" path="res://stages/stage_junko_manager.gd" id="4_lugph"]
+[ext_resource type="PackedScene" uid="uid://dcmd6bnw440v4" path="res://menu/game_over.tscn" id="6_p7cgj"]
+[ext_resource type="PackedScene" uid="uid://cstwtj5e1ogrx" path="res://menu/stage_clear.tscn" id="7_43q35"]
+[ext_resource type="Texture2D" uid="uid://cp2h8nc4bo670" path="res://assets/life_counter.png" id="8_1fhdr"]
+[ext_resource type="PackedScene" uid="uid://65nnxen5d4ue" path="res://enemies/boss.tscn" id="9_lugph"]
+
+[node name="stage_1" type="Node2D" unique_id=2062796819]
+script = ExtResource("1_6oaam")
+
+[node name="SpaceBackground" parent="." unique_id=1805029230 instance=ExtResource("2_lugph")]
+
+[node name="Ship" parent="." unique_id=854553741 instance=ExtResource("3_sj8rn")]
+position = Vector2(80, 220)
+
+[node name="LevelManager" type="Node2D" parent="." unique_id=1482225719]
+scale = Vector2(1.0195969, 1.033179)
+script = ExtResource("4_lugph")
+
+[node name="junko" parent="." unique_id=1614941212 instance=ExtResource("9_lugph")]
+position = Vector2(80, 56)
+
+[node name="GameOver" parent="." unique_id=272391852 instance=ExtResource("6_p7cgj")]
+visible = false
+
+[node name="StageClear" parent="." unique_id=593075402 instance=ExtResource("7_43q35")]
+visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=808436209]
+
+[node name="LivesContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1808385625]
+custom_maximum_size = Vector2(55, 20)
+offset_top = 16.0
+offset_right = 20.0
+offset_bottom = 26.0
+theme_override_constants/separation = 1
+
+[node name="LifeSprite" type="TextureRect" parent="CanvasLayer/LivesContainer" unique_id=1848184915]
+custom_minimum_size = Vector2(10, 10)
+custom_maximum_size = Vector2(10, 10)
+layout_mode = 2
+texture = ExtResource("8_1fhdr")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LifeSprite2" type="TextureRect" parent="CanvasLayer/LivesContainer" unique_id=837196966]
+custom_minimum_size = Vector2(10, 10)
+custom_maximum_size = Vector2(10, 10)
+layout_mode = 2
+texture = ExtResource("8_1fhdr")
+expand_mode = 1
+stretch_mode = 5
+
+[connection signal="game_over" from="Ship" to="." method="_on_ship_game_over"]
+[connection signal="life_lost" from="Ship" to="." method="_on_ship_life_lost"]
+[connection signal="boss_dead" from="junko" to="LevelManager" method="_on_junko_boss_dead"]
