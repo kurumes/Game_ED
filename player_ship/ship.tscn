@@ -1,0 +1,226 @@
+[gd_scene format=3 uid="uid://twvp8jgsxr13"]
+
+[ext_resource type="Script" uid="uid://dexc55txfgrr7" path="res://player_ship/ship.gd" id="1_etvdo"]
+[ext_resource type="Texture2D" uid="uid://cukpqfef50d3n" path="res://assets/ship.png" id="1_lyjrp"]
+[ext_resource type="Script" uid="uid://b73spjpnf04xm" path="res://components/move_component.gd" id="2_y3mk2"]
+[ext_resource type="Script" uid="uid://djumvp2vj6c1j" path="res://components/move_input_component.gd" id="3_snm6p"]
+[ext_resource type="Resource" uid="uid://bpix1uq67vbq" path="res://player_ship/ship_move_stats.tres" id="4_0n25c"]
+[ext_resource type="Script" uid="uid://by82ivnkivu7b" path="res://components/position_clamp_component.gd" id="5_6u6rn"]
+[ext_resource type="Script" uid="uid://b6rqnfjtw51ib" path="res://components/spawner_component.gd" id="7_6m5c2"]
+[ext_resource type="PackedScene" uid="uid://drjrv8u7heo24" path="res://projectiles/laser.tscn" id="8_le0bn"]
+[ext_resource type="Texture2D" uid="uid://c1ie32menre54" path="res://assets/ship_flame.png" id="9_le0bn"]
+[ext_resource type="Script" uid="uid://3enwbrxd1d4j" path="res://components/hitbox_component.gd" id="10_8ru6t"]
+[ext_resource type="Script" uid="uid://b734ss87xri35" path="res://components/stats_component.gd" id="11_lltil"]
+[ext_resource type="Script" uid="uid://cykqn85rux1ph" path="res://components/hurtbox_component.gd" id="12_1xpe7"]
+[ext_resource type="Script" uid="uid://scjfpwlh80wv" path="res://components/hurt_component.gd" id="13_kbeao"]
+[ext_resource type="PackedScene" uid="uid://dbi88hbfniljd" path="res://effects/explosion_effect.tscn" id="14_gglps"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lltil"]
+atlas = ExtResource("9_le0bn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xpe7"]
+atlas = ExtResource("9_le0bn")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbeao"]
+atlas = ExtResource("9_le0bn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a146t"]
+atlas = ExtResource("9_le0bn")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le0bn"]
+atlas = ExtResource("9_le0bn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ru6t"]
+atlas = ExtResource("9_le0bn")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ygjvg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lltil")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xpe7")
+}],
+"loop": 1,
+"name": &"bank_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbeao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a146t")
+}],
+"loop": 1,
+"name": &"bank_right",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le0bn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ru6t")
+}],
+"loop": 1,
+"name": &"center",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3mk2"]
+atlas = ExtResource("1_lyjrp")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snm6p"]
+atlas = ExtResource("1_lyjrp")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0n25c"]
+atlas = ExtResource("1_lyjrp")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8s21g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3mk2")
+}],
+"loop": 1,
+"name": &"bank_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snm6p")
+}],
+"loop": 1,
+"name": &"bank_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0n25c")
+}],
+"loop": 1,
+"name": &"center",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i72jr"]
+radius = 6.0207973
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8s21g"]
+radius = 2.0615528
+
+[node name="Ship" type="Node2D" unique_id=854553741 node_paths=PackedStringArray("player", "stats_component", "destroy_effect_spawner_component") groups=["player"]]
+script = ExtResource("1_etvdo")
+player = NodePath(".")
+stats_component = NodePath("StatsComponent")
+destroy_effect_spawner_component = NodePath("ExplosionSpawnerComponent")
+
+[node name="FlameAnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=483605216]
+position = Vector2(0, 15)
+sprite_frames = SubResource("SpriteFrames_ygjvg")
+animation = &"center"
+frame_progress = 0.0370698
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1430602311]
+sprite_frames = SubResource("SpriteFrames_8s21g")
+animation = &"center"
+autoplay = "center"
+
+[node name="MoveComponent" type="Node" parent="." unique_id=1418338178 node_paths=PackedStringArray("actor")]
+script = ExtResource("2_y3mk2")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://b73spjpnf04xm"
+
+[node name="MoveInputComponent" type="Node" parent="." unique_id=267090526 node_paths=PackedStringArray("move_component")]
+script = ExtResource("3_snm6p")
+move_stats = ExtResource("4_0n25c")
+move_component = NodePath("../MoveComponent")
+metadata/_custom_type_script = "uid://djumvp2vj6c1j"
+
+[node name="PositionClampComponent" type="Node2D" parent="." unique_id=297424769 node_paths=PackedStringArray("actor")]
+script = ExtResource("5_6u6rn")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://by82ivnkivu7b"
+
+[node name="CenterMuzzle" type="Marker2D" parent="." unique_id=688526385]
+position = Vector2(0, -7)
+
+[node name="LeftMuzzle" type="Marker2D" parent="." unique_id=2086567869]
+position = Vector2(-5, -4)
+
+[node name="LeftMuzzle2" type="Marker2D" parent="." unique_id=1982952512]
+position = Vector2(-10, 0)
+
+[node name="RightMuzzle" type="Marker2D" parent="." unique_id=92304794]
+position = Vector2(5, -4)
+
+[node name="RightMuzzle2" type="Marker2D" parent="." unique_id=1435562305]
+position = Vector2(10, 0)
+
+[node name="SpawnerComponent" type="Node2D" parent="." unique_id=1586584632]
+script = ExtResource("7_6m5c2")
+scene = ExtResource("8_le0bn")
+metadata/_custom_type_script = "uid://b6rqnfjtw51ib"
+
+[node name="FireRateTimer" type="Timer" parent="." unique_id=1211626757]
+wait_time = 0.15
+one_shot = true
+autostart = true
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=944253959]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("10_8ru6t")
+metadata/_custom_type_script = "uid://3enwbrxd1d4j"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=238539031]
+position = Vector2(0, 2.5)
+shape = SubResource("CircleShape2D_i72jr")
+
+[node name="StatsComponent" type="Node" parent="." unique_id=1510515509]
+script = ExtResource("11_lltil")
+metadata/_custom_type_script = "uid://b734ss87xri35"
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=2040284426]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("12_1xpe7")
+metadata/_custom_type_script = "uid://cykqn85rux1ph"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=576632077]
+position = Vector2(0, 2.5)
+scale = Vector2(0.7, 0.7)
+shape = SubResource("CircleShape2D_8s21g")
+
+[node name="HurtComponent" type="Node" parent="." unique_id=37469127 node_paths=PackedStringArray("stats_component", "hurtbox_component")]
+script = ExtResource("13_kbeao")
+stats_component = NodePath("../StatsComponent")
+hurtbox_component = NodePath("../HurtboxComponent")
+metadata/_custom_type_script = "uid://scjfpwlh80wv"
+
+[node name="ExplosionSpawnerComponent" type="Node2D" parent="." unique_id=134637642]
+script = ExtResource("7_6m5c2")
+scene = ExtResource("14_gglps")
+metadata/_custom_type_script = "uid://b6rqnfjtw51ib"
+
+[node name="iframeTimer" type="Timer" parent="." unique_id=786335804]
+one_shot = true
+
+[node name="RespawnTimer" type="Timer" parent="." unique_id=1302166889]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="no_health" from="StatsComponent" to="." method="_on_stats_component_no_health"]
+[connection signal="timeout" from="iframeTimer" to="." method="_on_iframe_timer_timeout"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

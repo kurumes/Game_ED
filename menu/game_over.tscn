@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://dcmd6bnw440v4"]
+
+[ext_resource type="Script" uid="uid://b8pqrtxkqw7cm" path="res://menu/game_over.gd" id="1_641x1"]
+
+[sub_resource type="SystemFont" id="SystemFont_641x1"]
+
+[node name="GameOver" type="Popup" unique_id=272391852]
+transparent_bg = true
+oversampling_override = 1.0
+size = Vector2i(160, 240)
+visible = true
+transparent = true
+script = ExtResource("1_641x1")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1257576865]
+offset_right = 160.0
+offset_bottom = 240.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.8117647)
+
+[node name="Label" type="Label" parent="." unique_id=905930591]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.15416667
+anchor_right = 0.5
+anchor_bottom = 0.15416667
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("SystemFont_641x1")
+text = "Game Over"
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1661472006]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.73333335
+anchor_right = 0.5
+anchor_bottom = 0.73333335
+offset_left = -28.0
+offset_top = -33.0
+offset_right = 28.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="RestartButton" type="Button" parent="VBoxContainer" unique_id=170907066]
+layout_mode = 2
+mouse_filter = 2
+text = "Restart"
+
+[node name="MenuButton" type="Button" parent="VBoxContainer" unique_id=797097098]
+layout_mode = 2
+mouse_filter = 2
+text = "Title Screen"
+
+[node name="ExitButton" type="Button" parent="VBoxContainer" unique_id=1402351256]
+layout_mode = 2
+mouse_filter = 2
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="focus_entered" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_focus_entered"]
+[connection signal="focus_exited" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_focus_exited"]
+[connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

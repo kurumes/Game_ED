@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cstwtj5e1ogrx"]
+
+[ext_resource type="Script" uid="uid://ba8qs1fuwsowl" path="res://menu/stage_clear.gd" id="1_oho6p"]
+
+[sub_resource type="SystemFont" id="SystemFont_8s21g"]
+subpixel_positioning = 0
+
+[sub_resource type="SystemFont" id="SystemFont_6br10"]
+subpixel_positioning = 0
+
+[node name="stage_clear" type="Popup" unique_id=593075402]
+process_mode = 3
+transparent_bg = true
+oversampling_override = 1.0
+size = Vector2i(168, 240)
+visible = true
+transparent = true
+script = ExtResource("1_oho6p")
+
+[node name="Background" type="ColorRect" parent="." unique_id=474370453]
+offset_right = 160.0
+offset_bottom = 240.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.50980395)
+
+[node name="Label" type="Label" parent="." unique_id=591298104]
+offset_left = 32.0
+offset_top = 56.0
+offset_right = 132.0
+offset_bottom = 79.0
+theme_override_fonts/font = SubResource("SystemFont_8s21g")
+text = "Boss Clear!!!"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=429144380]
+anchors_preset = -1
+anchor_top = 0.35416666
+anchor_bottom = 0.35416666
+offset_left = 32.0
+offset_top = 60.0
+offset_right = 130.0
+offset_bottom = 126.0
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="NextStageButton" type="Button" parent="VBoxContainer" unique_id=1583102715]
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/font = SubResource("SystemFont_6br10")
+text = "Main Menu"
+
+[connection signal="pressed" from="VBoxContainer/NextStageButton" to="." method="_on_next_stage_button_pressed"]

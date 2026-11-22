@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://g7lfmi2il04j"]
+
+[ext_resource type="PackedScene" uid="uid://dkijvv6fdy3xi" path="res://enemies/enemy.tscn" id="1_xixw3"]
+[ext_resource type="Script" uid="uid://b1xgwhqe4tbxm" path="res://enemies/green_enemy.gd" id="2_6rcqd"]
+[ext_resource type="Texture2D" uid="uid://def810npobsjj" path="res://assets/green_enemy.png" id="2_b0nf3"]
+[ext_resource type="Script" uid="uid://fwcujwegykd1" path="res://components/bullet_spawner_component.gd" id="4_yef3o"]
+[ext_resource type="PackedScene" uid="uid://qi75ajkhv8nj" path="res://projectiles/bullet_red.tscn" id="5_vofxp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rcqd"]
+atlas = ExtResource("2_b0nf3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yef3o"]
+atlas = ExtResource("2_b0nf3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vofxp"]
+atlas = ExtResource("2_b0nf3")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b0nf3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rcqd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yef3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vofxp")
+}],
+"loop": 1,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8s21g"]
+size = Vector2(16, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rcqd"]
+size = Vector2(12, 12)
+
+[node name="GreenEnemy" unique_id=1614941212 instance=ExtResource("1_xixw3")]
+script = ExtResource("2_6rcqd")
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=1516356539]
+sprite_frames = SubResource("SpriteFrames_b0nf3")
+animation = &"move"
+frame_progress = 0.05039979
+
+[node name="StatsComponent" parent="." index="1" unique_id=1711701219]
+health = 30
+
+[node name="MoveComponent" parent="." index="2" unique_id=613602314]
+velocity = Vector2(0, 0)
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="3" unique_id=617094955]
+rect = Rect2(-8, -7, 16, 14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" parent_id_path=PackedInt32Array(201789242) index="0" unique_id=911211345]
+shape = SubResource("RectangleShape2D_8s21g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" parent_id_path=PackedInt32Array(2087591382) index="0" unique_id=1980863045]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_6rcqd")
+
+[node name="BulletSpawnerComponent" type="Node2D" parent="." index="12" unique_id=1073034105]
+script = ExtResource("4_yef3o")
+bullet_scene = ExtResource("5_vofxp")
+simple_ring = true
+metadata/_custom_type_script = "uid://fwcujwegykd1"
+
+[node name="SpawnPoints" type="Node2D" parent="BulletSpawnerComponent" index="0" unique_id=52196361]

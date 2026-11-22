@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://csnugxfl7dyg2"]
+
+[ext_resource type="Script" uid="uid://b1l8e1pne8d08" path="res://projectiles/bullet_rice.gd" id="1_l1t5w"]
+[ext_resource type="Script" uid="uid://b73spjpnf04xm" path="res://components/move_component.gd" id="2_l1t5w"]
+[ext_resource type="Texture2D" uid="uid://0q3wbyi0d5ua" path="res://assets/rice.png" id="2_v4uup"]
+[ext_resource type="Script" uid="uid://3enwbrxd1d4j" path="res://components/hitbox_component.gd" id="3_v4uup"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eal53"]
+radius = 8.0
+
+[node name="bullet_rice" type="Node2D" unique_id=1535321328 groups=["bullets"]]
+scale = Vector2(0.4, 0.4)
+script = ExtResource("1_l1t5w")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1632560327]
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_v4uup")
+
+[node name="MoveComponent" type="Node" parent="." unique_id=659439758 node_paths=PackedStringArray("actor")]
+script = ExtResource("2_l1t5w")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://b73spjpnf04xm"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1899731989]
+scale = Vector2(0.5, 0.5)
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=896357310]
+scale = Vector2(0.5, 0.5)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_v4uup")
+metadata/_custom_type_script = "uid://3enwbrxd1d4j"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1028237934]
+rotation = 1.5707964
+scale = Vector2(0.5, 1.037)
+shape = SubResource("CircleShape2D_eal53")

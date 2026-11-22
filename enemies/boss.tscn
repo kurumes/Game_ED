@@ -1,0 +1,195 @@
+[gd_scene format=3 uid="uid://65nnxen5d4ue"]
+
+[ext_resource type="PackedScene" uid="uid://dkijvv6fdy3xi" path="res://enemies/enemy.tscn" id="1_0fr74"]
+[ext_resource type="Script" uid="uid://bg5rwd814wuq" path="res://enemies/boss.gd" id="2_m4ck2"]
+[ext_resource type="Texture2D" uid="uid://cukpqfef50d3n" path="res://assets/ship.png" id="2_ubif4"]
+[ext_resource type="Script" uid="uid://fwcujwegykd1" path="res://components/bullet_spawner_component.gd" id="3_m4ck2"]
+[ext_resource type="PackedScene" uid="uid://csnugxfl7dyg2" path="res://projectiles/bullet_rice.tscn" id="4_yotvq"]
+[ext_resource type="PackedScene" uid="uid://bepww806fr4ag" path="res://projectiles/bullet_blue.tscn" id="5_xlmq3"]
+[ext_resource type="PackedScene" uid="uid://qi75ajkhv8nj" path="res://projectiles/bullet_red.tscn" id="6_r5kll"]
+[ext_resource type="PackedScene" uid="uid://dqwggj2e025av" path="res://projectiles/bullet_purple.tscn" id="7_8bu3g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkvxi"]
+atlas = ExtResource("2_ubif4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ifd5"]
+atlas = ExtResource("2_ubif4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_if8y3"]
+atlas = ExtResource("2_ubif4")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2bghh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkvxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ifd5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_if8y3")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8s21g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygjvg"]
+size = Vector2(20, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evp1i"]
+size = Vector2(20, 73.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4dmg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6key"]
+
+[node name="junko" unique_id=1614941212 instance=ExtResource("1_0fr74")]
+script = ExtResource("2_m4ck2")
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=1516356539]
+scale = Vector2(-1, -1)
+sprite_frames = SubResource("SpriteFrames_2bghh")
+frame_progress = 0.47692633
+
+[node name="StatsComponent" parent="." index="1" unique_id=1711701219]
+health = 940
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" parent_id_path=PackedInt32Array(201789242) index="0" unique_id=337781427]
+shape = SubResource("RectangleShape2D_8s21g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" parent_id_path=PackedInt32Array(2087591382) index="0" unique_id=126443266]
+shape = SubResource("RectangleShape2D_8s21g")
+
+[node name="Rice" type="Node2D" parent="." index="10" unique_id=1754743191]
+position = Vector2(-16, 0)
+script = ExtResource("3_m4ck2")
+bullet_scene = ExtResource("4_yotvq")
+bullet_speed = 90.0
+pattern = 1
+aimed = true
+spawner_count = 1
+fire_rate = 0.5
+metadata/_custom_type_script = "uid://fwcujwegykd1"
+
+[node name="Rice2" type="Node2D" parent="." index="11" unique_id=435298825]
+position = Vector2(16, 0)
+script = ExtResource("3_m4ck2")
+bullet_scene = ExtResource("4_yotvq")
+bullet_speed = 90.0
+pattern = 1
+aimed = true
+spawner_count = 1
+fire_rate = 0.5
+metadata/_custom_type_script = "uid://fwcujwegykd1"
+
+[node name="Blue" type="Node2D" parent="." index="12" unique_id=1650429980]
+position = Vector2(60, 8)
+script = ExtResource("3_m4ck2")
+bullet_scene = ExtResource("5_xlmq3")
+bullet_speed = 150.0
+radius = 20
+spawner_count = 54
+fire_rate = 1.0
+teleporting = true
+tp_interval = 1.0
+metadata/_custom_type_script = "uid://fwcujwegykd1"
+
+[node name="TpArea" type="Area2D" parent="Blue" index="0" unique_id=744247172]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blue/TpArea" index="0" unique_id=982526218]
+shape = SubResource("RectangleShape2D_ygjvg")
+
+[node name="Blue2" type="Node2D" parent="." index="13" unique_id=1024382881]
+position = Vector2(-60, 8)
+script = ExtResource("3_m4ck2")
+bullet_scene = ExtResource("5_xlmq3")
+bullet_speed = 150.0
+radius = 20
+spawner_count = 54
+fire_rate = 1.0
+teleporting = true
+tp_interval = 1.0
+metadata/_custom_type_script = "uid://fwcujwegykd1"
+
+[node name="TpArea" type="Area2D" parent="Blue2" index="0" unique_id=102865958]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blue2/TpArea" index="0" unique_id=1908147492]
+shape = SubResource("RectangleShape2D_evp1i")
+
+[node name="Red" type="Node2D" parent="." index="14" unique_id=1689519016]
+script = ExtResource("3_m4ck2")
+bullet_scene = ExtResource("6_r5kll")
+bullet_speed = 150.0
+rng = true
+radius = 20
+spawner_count = 30
+fire_rate = 0.3
+teleporting = true
+tp_interval = 0.3
+metadata/_custom_type_script = "uid://fwcujwegykd1"
+
+[node name="TpArea" type="Area2D" parent="Red" index="0" unique_id=841525586]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Red/TpArea" index="0" unique_id=1195852850]
+scale = Vector2(2.915, 2.915)
+shape = SubResource("RectangleShape2D_i4dmg")
+
+[node name="Purple2" type="Node2D" parent="." index="15" unique_id=2072590892]
+position = Vector2(60, 8)
+script = ExtResource("3_m4ck2")
+bullet_scene = ExtResource("7_8bu3g")
+bullet_speed = 100.0
+rng = true
+radius = 10
+spawner_count = 10
+fire_rate = 0.8
+base_rotate_speed = 100.0
+teleporting = true
+tp_interval = 0.5
+metadata/_custom_type_script = "uid://fwcujwegykd1"
+
+[node name="TpArea" type="Area2D" parent="Purple2" index="0" unique_id=1409483825]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Purple2/TpArea" index="0" unique_id=32896742]
+scale = Vector2(1.7, 1.7)
+shape = SubResource("RectangleShape2D_q6key")
+
+[node name="Purple" type="Node2D" parent="." index="16" unique_id=1262095998]
+position = Vector2(-60, 8)
+script = ExtResource("3_m4ck2")
+bullet_scene = ExtResource("7_8bu3g")
+bullet_speed = 100.0
+rng = true
+radius = 10
+spawner_count = 10
+fire_rate = 0.8
+base_rotate_speed = 100.0
+teleporting = true
+tp_interval = 0.5
+metadata/_custom_type_script = "uid://fwcujwegykd1"
+
+[node name="TpArea" type="Area2D" parent="Purple" index="0" unique_id=1624517834]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Purple/TpArea" index="0" unique_id=1279790322]
+scale = Vector2(1.7, 1.7)
+shape = SubResource("RectangleShape2D_q6key")
+
+[connection signal="health_changed" from="StatsComponent" to="." method="_on_stats_component_health_changed"]
+[connection signal="no_health" from="StatsComponent" to="." method="_on_stats_component_no_health"]
